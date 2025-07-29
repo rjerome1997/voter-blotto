@@ -6,8 +6,8 @@ import pandas
 
 # read in data from file
 #need to read in as arrays
-red_df = pandas.read_csv('red_data.csv')
-blue_df = pandas.read_csv('blue_data.csv')
+red_df = pandas.read_csv('blotter_ai/data/red_data.csv')
+blue_df = pandas.read_csv('blotter_ai/data/blue_data.csv')
 
 red_df = red_df.drop(columns=red_df.columns[0], axis=1)
 

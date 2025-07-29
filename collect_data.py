@@ -3,7 +3,9 @@ from create_nodes import *
 import pandas
 import numpy as np
 
-"""SOMEDAY I SHOULD REMOVE THE REDUNDANCIES BETWEEN THIS AND RUN_GAME"""
+"""This file can be run by itself and it will create battlefields and run them in autoplay until they converge,
+then output the data into a heatmap."""
+
 def collect_data(battlefields, threshold):
     user_vals = []
     computer_vals = []
@@ -55,25 +57,22 @@ def collect_data(battlefields, threshold):
 
 """AUTOMATING DATA COLLECTION"""
 #create pandas dataframe that will be indexed by polarization and degree and contain the num states
-red_dummy_data = np.zeros((45, 80))
-blue_dummy_data = np.zeros((45, 80))
+red_dummy_data = np.zeros((45, 99))
+blue_dummy_data = np.zeros((45, 99))
 row_names = []
 for i in range(5, 50):
     row_names.append(str(i))
 col_names = []
-for i in range(10, 90):
+for i in range(1, 100):
     col_names.append(str(i))
 red_df = pandas.DataFrame(red_dummy_data, index=row_names, columns=col_names)
 blue_df = pandas.DataFrame(blue_dummy_data, index=row_names, columns=col_names)
-
-print(red_df)
-
 
 #create a new map for every polarization/degree combination
 curr_threshold = THRESHOLD
 for avg_degree in range(5, 50):
     print(avg_degree)
-    for polarization in range(10, 90):
+    for polarization in range(1, 100):
         battlefields = []
         # create nodes for node network and apportion into battlefields
         color = 0
@@ -111,8 +110,10 @@ for avg_degree in range(5, 50):
                 print("Fail to converge " + str(polarization))
                 cont = False
 
-print(red_df)
-print(blue_df)
+print(red_df.columns)
+print(red_df.index)
+
+
 
 red_df.to_csv("red_data.csv")
 blue_df.to_csv("blue_data.csv")

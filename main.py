@@ -1,6 +1,18 @@
 from create_nodes import *
 from run_game import run_game
+import math
 
+
+"""It REALLY annoys me that I have to put the random model in this file as well, but I'm getting compilation issues, so here we are."""
+def random_model(resources = RESOURCES, num_battlefields = NUM_BATTLEFIELDS, autoplay=False):
+    if autoplay:
+        return [1] * num_battlefields
+    rand_n = [random.random() for i in range(num_battlefields)] #generate a random value for each battlefield
+    result = [math.floor(i*resources/sum(rand_n)) for i in rand_n] #divide each value by sum*resources to get floats that add to resources and then floor to get integers
+    #make up for flooring by adding 1 to random values until you get to sum = resources
+    for i in range(resources - sum(result)):
+        result[random.randint(0,num_battlefields-1)] += 1
+    return result
 
 battlefields = []
 #create nodes for node network and apportion into battlefields
@@ -14,11 +26,13 @@ print("STARTING NETWORK")
 for i in battlefields:
     print(i)
 
-#run the simulation in autoplay
+#run the simulation
 curr_threshold = THRESHOLD
 for i in range(0, NUM_ROUNDS):
     print("ROUND " + str(i+1))
-    run_game(battlefields, curr_threshold)
+    #just run the random model against the user
+    player1_vals = random_model()
+    run_game(battlefields, curr_threshold, player1_vals=None)
     for i in battlefields:
         print(i)
     curr_threshold = curr_threshold*RATE_OF_INCREASE
