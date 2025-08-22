@@ -6,22 +6,19 @@ from networkx.generators.degree_seq import expected_degree_graph
 
 from settings import *
 
-def create_nodes(k = WATTS_STROGATZ_K, p = WATTS_STROGATZ_P):
+def create_nodes(num_nodes=NUM_NODES, k = WATTS_STROGATZ_K, p = WATTS_STROGATZ_P):
     max_iters = 1000 #maximum attempts to create desired graph
     for _ in range(max_iters):
         try:
-            w = []
-            for i in range(NUM_NODES):
-                w.append(random.randint(10,15))
-            graph = nx.watts_strogatz_graph(NUM_NODES, WATTS_STROGATZ_K, WATTS_STROGATZ_P)
+            graph = nx.watts_strogatz_graph(num_nodes, k, p)
             return graph
         except nx.NetworkXError as e:
             print(f"Attempt failed: {e}")
             continue
     return
 
-def color_nodes(graph, color, polarization = POLARIZATION):
-    num_to_color = int(NUM_NODES*polarization)
+def color_nodes(graph, color, num_nodes=NUM_NODES, polarization = POLARIZATION):
+    num_to_color = int(num_nodes*polarization)
     if color == 0:
         color = 'blue'
         default = 'red'
