@@ -2,8 +2,6 @@ from create_nodes import *
 from run_game import run_game
 import math
 
-
-"""It REALLY annoys me that I have to put the random model in this file as well, but I'm getting compilation issues, so here we are."""
 def random_model(resources = RESOURCES, num_battlefields = NUM_BATTLEFIELDS, autoplay=False):
     if autoplay:
         return [1] * num_battlefields

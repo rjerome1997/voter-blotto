@@ -1,9 +1,6 @@
 import numpy as np
 from settings import *
-import random
-import math
 import networkx as nx
-import matplotlib.pyplot as plt
 
 """Uses a very simple fraction to generate the boost; num_winning_resources/total_allocated_to_bf"""
 def simple_boost(blue_resources, red_resources):
@@ -56,10 +53,10 @@ you have to keep calling run_game and giving it the battlefields."""
 def run_game(battlefields, threshold, player1_vals=None, player2_vals=None, autoplay=False):
     #determine who won each battlefield
     if player1_vals is None:
-        print("Provide input for player 1")
+        print("Provide input for player 1:")
         player1_vals = get_user_input()
     if player2_vals is None:
-        print("Provide input for player 2")
+        print("Provide input for player 2:")
         player2_vals = get_user_input()
 
     polarizations = []
@@ -111,7 +108,4 @@ def run_game(battlefields, threshold, player1_vals=None, player2_vals=None, auto
         print("Red Nodes: " + str(total_red))
         print("\n")
         polarizations.append(total_blue/NUM_NODES)
-        pos = nx.circular_layout(battlefields[i])
-        nx.draw(battlefields[i], with_labels=True, node_color=new_colors)
-        #plt.show()
     return polarizations
